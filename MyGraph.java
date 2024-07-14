@@ -49,6 +49,7 @@ public class MyGraph
      */
     public String bfs(int startVertex){
         // student implement this
+        return "";
     }
 
     /**
@@ -59,5 +60,6 @@ public class MyGraph
      */
     public String dfs(int startVertex){
         // the student implement this
+        return "";
     }
 }
