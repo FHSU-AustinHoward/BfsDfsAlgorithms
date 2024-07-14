@@ -1,13 +1,13 @@
 /**
  * class MyGraph. Will use Matrix to represent a simple weighted directed graph. There is no loop at vertex.
  * No more than one edge from vertex i to another vertex j. The vertices are numbered as 1, 2, ..., n
- * The graph with n vertices is reprented by an (n+1) by (n+1) matrix with row 0 and column 0 unused.
+ * The graph with n vertices is represented by an (n+1) by (n+1) matrix with row 0 and column 0 unused.
  * If there is an edge from vertex i to vertex j (i != j), then entry on row i column j of the matrix will
  * be 1. If there is no edge between vertex i to vertex j (i != j), then the entry on row i column j of the
  * matrix will be Integer.MAX_VALUE
  *
- * @author Hong Biao Zeng
- * @version Dec 12, 2015
+ * @author Austin Howard
+ * @version July 13, 2024
  */
 import java.util.*;
 public class MyGraph
@@ -47,10 +47,38 @@ public class MyGraph
      * @param startVertex The vertex where the traversal starts
      * @return A String that describes the vertices visited in order
      */
-    public String bfs(int startVertex){
-        // student implement this
-        return "";
+    public String bfs(int startVertex) {
+        if (startVertex < 1 || startVertex > numberOfVertices) {
+            return "Selected Vertex cannot exist.";
+        }
+
+        boolean[] visited = new boolean[numberOfVertices + 1];
+        Queue<Integer> queue = new LinkedList<>();
+        StringBuilder result = new StringBuilder();
+
+        queue.add(startVertex);
+        visited[startVertex] = true;
+
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll();
+            result.append(vertex).append(", ");
+
+            for (int i = 1; i <= numberOfVertices; i++) {
+                if (graph[vertex][i] != Integer.MAX_VALUE && !visited[i]) {
+                    queue.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+
+        // Remove the trailing comma and space
+        if (!result.isEmpty()) {
+            result.setLength(result.length() - 2);
+        }
+
+        return result.toString();
     }
+
 
     /**
      * return a String that represents the vertices in order if the DFS algorithm is used to traversal the graph
