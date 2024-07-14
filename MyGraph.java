@@ -86,8 +86,38 @@ public class MyGraph
      * @param startVertex The vertex where the traversal starts
      * @return An ArrayList of Integer that represents the vertices visited in order
      */
-    public String dfs(int startVertex){
-        // the student implement this
-        return "";
+    public String dfs(int startVertex) {
+        if (startVertex < 1 || startVertex > numberOfVertices) {
+            return "No such a start vertex";
+        }
+
+        boolean[] visited = new boolean[numberOfVertices + 1];
+        Stack<Integer> stack = new Stack<>();
+        StringBuilder result = new StringBuilder();
+
+        stack.push(startVertex);
+
+        while (!stack.isEmpty()) {
+            int vertex = stack.pop();
+
+            if (!visited[vertex]) {
+                result.append(vertex).append(", ");
+                visited[vertex] = true;
+
+                for (int i = numberOfVertices; i >= 1; i--) {
+                    if (graph[vertex][i] != Integer.MAX_VALUE && !visited[i]) {
+                        stack.push(i);
+                    }
+                }
+            }
+        }
+
+        // Remove the trailing comma and space
+        if (!result.isEmpty()) {
+            result.setLength(result.length() - 2);
+        }
+
+        return result.toString();
     }
+
 }
