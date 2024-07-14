@@ -48,22 +48,28 @@ public class MyGraph
      * @return A String that describes the vertices visited in order
      */
     public String bfs(int startVertex) {
+        // Return error message if startVertex doesn't exist
         if (startVertex < 1 || startVertex > numberOfVertices) {
-            return "Selected Vertex cannot exist.";
+            return "Error: Selected Vertex does not exist.";
         }
 
+        // Initialize data structures for BFS traversal
         boolean[] visited = new boolean[numberOfVertices + 1];
         Queue<Integer> queue = new LinkedList<>();
         StringBuilder result = new StringBuilder();
 
+        // Start BFS from startVertex and mark as visited
         queue.add(startVertex);
         visited[startVertex] = true;
 
         while (!queue.isEmpty()) {
+            // Dequeue a vertex from the queue and append it to the result
             int vertex = queue.poll();
             result.append(vertex).append(", ");
 
             for (int i = 1; i <= numberOfVertices; i++) {
+                // If there's an edge to vertex i and it's not visited yet,
+                // enqueue and mark visited
                 if (graph[vertex][i] != Integer.MAX_VALUE && !visited[i]) {
                     queue.add(i);
                     visited[i] = true;
@@ -87,24 +93,32 @@ public class MyGraph
      * @return An ArrayList of Integer that represents the vertices visited in order
      */
     public String dfs(int startVertex) {
+        // Return error message if startVertex doesn't exist
         if (startVertex < 1 || startVertex > numberOfVertices) {
-            return "No such a start vertex";
+            return "Error: Selected Vertex does not exist.";
         }
 
+        // Initialize data structures for DFS traversal
         boolean[] visited = new boolean[numberOfVertices + 1];
         Stack<Integer> stack = new Stack<>();
         StringBuilder result = new StringBuilder();
 
+        // Start DFS from startVertex
         stack.push(startVertex);
 
         while (!stack.isEmpty()) {
+            // Pop a vertex from the top of the stack
             int vertex = stack.pop();
 
+            // If vertex isn't visited, process it
             if (!visited[vertex]) {
                 result.append(vertex).append(", ");
                 visited[vertex] = true;
 
+                // Push adjacent vertices onto the stack in reverse order
                 for (int i = numberOfVertices; i >= 1; i--) {
+                    // If there's an edge to vertex i and it's not visited yet,
+                    // push onto the stack
                     if (graph[vertex][i] != Integer.MAX_VALUE && !visited[i]) {
                         stack.push(i);
                     }
